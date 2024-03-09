@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenging Button</title>
+    <style>
+        #challengingButton {
+            position: absolute;
+            transition: transform 0.5s ease;
+        }
+
+        #challengingButton.moved {
+            transform: translate(500px, 600px);
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <button id="challengingButton">Click Me... If You Can!</button>
+
+    <script>
+        const challengingButton = document.getElementById('challengingButton');
+
+        function encrypt(message) {
+            const shift = 3; // Shift characters by 3 positions
+            return message.replace(/[a-zA-Z]/g, (char) => {
+                const charCode = char.charCodeAt(0);
+                const isUpperCase = char === char.toUpperCase();
+                const shiftedCharCode = ((charCode - (isUpperCase ? 65 : 97) + shift) % 26) + (isUpperCase ? 65 : 97);
+                return String.fromCharCode(shiftedCharCode);
+            });
+        }
+
+        function decrypt(encryptedMessage) {
+            const shift = 3; // Reverse the shift for decryption
+            return encrypt(encryptedMessage);
+        }
+
+        challengingButton.addEventListener('click', () => {
+            challengingButton.classList.toggle('moved');
+            
+            const encryptedMessage = 'Xliiwi xlmrk yrksvi!';
+            const decryptedMessage = decrypt(encryptedMessage);
+            alert(`Congratulations! You clicked the challenging button!\nDecrypted Message: ${decryptedMessage}`);
+        });
+
+        challengingButton.addEventListener('mouseenter', () => {
+            challengingButton.classList.toggle('moved');
+        });
+    </script>
+</body>
+</html>
